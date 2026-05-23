@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>供应商管理原型</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="page-header">
+        <h1>供应商管理</h1>
+        <button id="add-supplier-btn" class="btn btn-primary" type="button">
+          新增供应商
+        </button>
+      </header>
+
+      <section class="filters" aria-label="筛选供应商">
+        <label class="field">
+          <span>状态</span>
+          <select id="status-filter">
+            <option value="all">全部</option>
+            <option value="pending">待审核</option>
+            <option value="approved">已通过</option>
+            <option value="rejected">已驳回</option>
+          </select>
+        </label>
+
+        <label class="field field-grow">
+          <span>关键词</span>
+          <input id="keyword-filter" type="text" placeholder="供应商名称/联系人" />
+        </label>
+      </section>
+
+      <section class="table-wrap">
+        <table class="supplier-table">
+          <thead>
+            <tr>
+              <th>供应商名称</th>
+              <th>联系人</th>
+              <th>手机号</th>
+              <th>供应品类</th>
+              <th>审核状态</th>
+              <th>更新时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="supplier-tbody"></tbody>
+        </table>
+      </section>
+
+      <p id="table-stats" class="stats"></p>
+    </main>
+
+    <dialog id="supplier-dialog" class="modal">
+      <form id="supplier-form" class="modal-form" method="dialog">
+        <h2 id="supplier-dialog-title">新增供应商</h2>
+        <input id="supplier-id" type="hidden" />
+
+        <label class="field">
+          <span>供应商名称 *</span>
+          <input id="supplier-name" type="text" required maxlength="50" />
+        </label>
+
+        <label class="field">
+          <span>联系人 *</span>
+          <input id="contact-name" type="text" required maxlength="30" />
+        </label>
+
+        <label class="field">
+          <span>手机号 *</span>
+          <input id="contact-phone" type="tel" required maxlength="20" />
+        </label>
+
+        <label class="field">
+          <span>邮箱</span>
+          <input id="contact-email" type="email" maxlength="80" />
+        </label>
+
+        <label class="field">
+          <span>供应品类 *</span>
+          <input id="category" type="text" required maxlength="50" />
+        </label>
+
+        <label class="field">
+          <span>备注</span>
+          <textarea id="note" rows="3" maxlength="200"></textarea>
+        </label>
+
+        <div class="modal-actions">
+          <button class="btn btn-muted" data-close="supplier" type="button">取消</button>
+          <button class="btn btn-primary" type="submit">保存</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="review-dialog" class="modal">
+      <form id="review-form" class="modal-form" method="dialog">
+        <h2>审核供应商</h2>
+        <input id="review-id" type="hidden" />
+
+        <p id="review-summary" class="review-summary"></p>
+
+        <label class="field">
+          <span>审核结果 *</span>
+          <select id="review-result" required>
+            <option value="approved">通过</option>
+            <option value="rejected">驳回</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>驳回原因（驳回时必填）</span>
+          <textarea id="review-reason" rows="3" maxlength="200"></textarea>
+        </label>
+
+        <div class="modal-actions">
+          <button class="btn btn-muted" data-close="review" type="button">取消</button>
+          <button class="btn btn-primary" type="submit">确认审核</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
